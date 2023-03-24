@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Pair</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">MATCHING PAIR GAME</div>
+    <div class="game-container">
+        <div class="game-pattern">
+        </div>
+        <div class="control-pattern">
+            <div class="text-score">Score</div>
+            <div id="score">0</div>
+            <button type="button" onclick="initGame()" class="control-btn start-btn">Start Game</button>
+            <button type="button" onclick="resetGame()" class="control-btn reset-btn">Reset Game</button>
+            <div class="text-score" id="timer">00:00</div>
+        </div>
+        
+    </div>
+    <script src="game.js"></script>
+
+</body>
+
+</html>
