@@ -50,6 +50,7 @@ function flipCard(cardIndex) {
     //Disable the card after clicked
     let cardSelected = document.querySelector('.card-' + cardIndex);
     cardSelected.style.backgroundColor = cardSelected.getAttribute('data-color');
+    cardSelected.style.cursor = 'not-allowed';
     cardSelected.setAttribute('disabled', true);
     if (!selectedFirstCard) {
         firstCardIndex = cardIndex;
@@ -64,7 +65,8 @@ function flipCard(cardIndex) {
             score++;
             document.getElementById('score').innerHTML = score;
             if (score == 8) {
-                alert(`You win! Your time is ${completeTime}!`);
+                document.querySelector('.win-annoucement').textContent = `You win! Your time is ${completeTime}!`;
+                clearInterval(timer);
             }
         } 
         else {
@@ -81,7 +83,7 @@ function flipCard(cardIndex) {
                     item.removeAttribute('disabled');
                     item.style.cursor = 'pointer';
                 });
-            }, 1000);
+            }, 800);
         }
         selectedFirstCard = false;
         selectedSecondCard = false;

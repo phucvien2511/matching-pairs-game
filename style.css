@@ -9,16 +9,21 @@ body {
     background-color: #659dbd;
 }
 .header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
+    text-align: center;
     font-size: 40px;
     font-weight: bolder;
     color: #fff;
     margin: 30px auto;  
 }
+
+.win-annoucement {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #fff;
+    margin: 20px auto;  
+}
+
 .game-container {
     display: flex;
     flex-direction: row;
