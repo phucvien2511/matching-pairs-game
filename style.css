@@ -8,89 +8,193 @@
 body {
     background-color: #659dbd;
 }
-.header {
-    text-align: center;
-    font-size: 40px;
-    font-weight: bolder;
-    color: #fff;
-    margin: 30px auto;  
-}
 
-.win-annoucement {
-    text-align: center;
-    font-size: 30px;
-    font-weight: bolder;
-    color: #fff;
-    margin: 20px auto;  
-}
+/* Mobile responsive */
+@media only screen and (max-width: 768px) {
+    .header {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bolder;
+        color: #fff;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .win-annoucement {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bolder;
+        color: #fff;
+        margin: 15px auto;  
+    }
+    
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 75vh;
+    }
+    
+    /* GAME PATTERN */
+    .game-pattern {
+        /* Make 4x4 board */
+        display: grid;
+        grid-template-columns: repeat(4, 20%);
+        gap: 20px;
+        align-self: center;
+    }
+    
+    .game-pattern button {
+        width: 70px;
+        height: 70px;
+        border: 3px solid #8d8741;
+        border-radius: 10px;
+        background-color: #fbeec1;
+    }
+    
+    .game-pattern button:hover {
+        cursor: pointer;
+    }
+    /* GAME PATTERN END */
+    
+    /* CONTROL PATTERN */
+    .control-pattern {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    .control-pattern > * {
+        margin: 10px auto;
+    }
+    .big-text {
+        font-size: 30px;
+        font-weight: bold;
+        color: #fff;
+    }
+    #flip-time {
+        color: #fff;
+        font-size: 50px;
+        font-weight: bold;
+    }
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
 
-.game-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 75vh;
+    }
+    .control-btn {
+        width: 120px;
+        height: 60px;
+        font-weight: bold;
+        font-size: 20px;
+        border: 3px solid #8d8741;
+        border-radius: 15px;
+        background-color: #fbeec1;
+    }
+    .control-btn:hover {
+        background-color: #8d8741;
+        color: #fbeec1;
+        cursor: pointer;
+    }
+    .start-btn:disabled {
+        background-color: #8d8741;
+        color: #fbeec1;
+        cursor: not-allowed;
+    }
+    /* CONTROL PATTERN END */
 }
+    
+/* Desktop responsive */
+@media only screen and (min-width: 768px) {
+    .header {
+        text-align: center;
+        font-size: 40px;
+        font-weight: bolder;
+        color: #fff;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .win-annoucement {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bolder;
+        color: #fff;
+        margin: 20px auto;  
+    }
+    
+    .game-container {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
 
-/* GAME PATTERN */
-.game-pattern {
-    /* Make 4x4 board */
-    display: grid;
-    grid-template-columns: repeat(4, 180px);
-
-
+        height: 75vh;
+    }
+    
+    /* GAME PATTERN */
+    .game-pattern {
+        /* Make 4x4 board */
+        display: grid;
+        grid-template-columns: repeat(4, 160px);
+        row-gap: 20px;
+    }
+    
+    .game-pattern button {
+        width: 120px;
+        height: 120px;
+        border: 5px solid #8d8741;
+        border-radius: 20px;
+        background-color: #fbeec1;
+    }
+    
+    .game-pattern button:hover {
+        cursor: pointer;
+    }
+    /* GAME PATTERN END */
+    
+    /* CONTROL PATTERN */
+    .control-pattern {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .control-pattern > * {
+        margin: 20px auto;
+    }
+    .big-text {
+        font-size: 40px;
+        font-weight: bold;
+        color: #fff;
+    }
+    #flip-time {
+        color: #fff;
+        font-size: 60px;
+        font-weight: bold;
+    }
+    .control-btn {
+        width: 180px;
+        height: 80px;
+        font-weight: bold;
+        font-size: 24px;
+        border: 5px solid #8d8741;
+        border-radius: 20px;
+        background-color: #fbeec1;
+    }
+    .control-btn:hover {
+        background-color: #8d8741;
+        color: #fbeec1;
+        cursor: pointer;
+    }
+    .start-btn:disabled {
+        background-color: #8d8741;
+        color: #fbeec1;
+        cursor: not-allowed;
+    }
+    /* CONTROL PATTERN END */
 }
-
-.game-pattern button {
-    width: 120px;
-    height: 120px;
-    border: 5px solid #8d8741;
-    border-radius: 20px;
-    background-color: #fbeec1;
-}
-
-.game-pattern button:hover {
-    cursor: pointer;
-}
-/* GAME PATTERN END */
-
-/* CONTROL PATTERN */
-.control-pattern {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.control-pattern > * {
-    margin: 20px auto;
-}
-.big-text {
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-}
-#flip-time {
-    color: #fff;
-    font-size: 60px;
-    font-weight: bold;
-}
-.control-btn {
-    width: 180px;
-    height: 80px;
-    font-weight: bold;
-    font-size: 24px;
-    border: 5px solid #8d8741;
-    border-radius: 20px;
-    background-color: #fbeec1;
-}
-.control-btn:hover {
-    background-color: #8d8741;
-    color: #fbeec1;
-    cursor: pointer;
-}
-.start-btn:disabled {
-    background-color: #8d8741;
-    color: #fbeec1;
-    cursor: not-allowed;
-}
-/* CONTROL PATTERN END */
