@@ -3,6 +3,7 @@ const color = ['red', 'blue', 'purple', 'yellow', 'green', 'pink', 'white', 'bla
 let card = [];
 let cardColor = [];
 let score = 0;
+let flipTime = 0;
 let completeMinute = 0;
 let completeSecond = 0;
 let completeTime = '';
@@ -26,6 +27,7 @@ function initGame() {
         cardElement.classList.add('card-' + i);
         cardElement.onclick = function () { flipCard(i); }
         cardElement.setAttribute('data-color', cardColor[i]);
+        cardElement.setAttribute('matched', false);
         cardElement.style.backgroundColor = '#fbecc1';
         document.querySelector('.game-pattern').appendChild(cardElement);
     }
@@ -47,11 +49,14 @@ function initGame() {
 
 
 function flipCard(cardIndex) {
+
     //Disable the card after clicked
     let cardSelected = document.querySelector('.card-' + cardIndex);
     cardSelected.style.backgroundColor = cardSelected.getAttribute('data-color');
     cardSelected.style.cursor = 'not-allowed';
     cardSelected.setAttribute('disabled', true);
+    let audio = new Audio('audio/click.mp3');
+    audio.play();
     if (!selectedFirstCard) {
         firstCardIndex = cardIndex;
         selectedFirstCard = true;
@@ -61,13 +66,27 @@ function flipCard(cardIndex) {
     }
     //Compare color of 2 cards
     if (selectedFirstCard && selectedSecondCard) {
+        //Increase the flip time
+        flipTime++;
+        document.getElementById('flip-time').innerHTML = flipTime;
         if (cardColor[firstCardIndex] == cardColor[secondCardIndex]) {
             score++;
-            document.getElementById('score').innerHTML = score;
             if (score == 8) {
-                document.querySelector('.win-annoucement').textContent = `You win! Your time is ${completeTime}!`;
+                document.querySelector('.win-annoucement').textContent = `You win! Your time: ${completeTime}. You flipped ${flipTime} pairs.`;
                 clearInterval(timer);
+                let audio = new Audio('audio/win.mp3');
+                audio.volume = 0.75;
+                audio.play();
+                //End the game
+                return;
             }
+            //Mark the cards as matched
+            document.getElementsByClassName('card-' + firstCardIndex)[0].setAttribute('matched', true);
+            document.getElementsByClassName('card-' + secondCardIndex)[0].setAttribute('matched', true);
+            //Play the audio
+            let audio = new Audio('audio/correct.mp3');
+            audio.volume = 0.5;
+            audio.play();
         } 
         else {
             //Disable all cards in 1 second
@@ -79,11 +98,18 @@ function flipCard(cardIndex) {
             setTimeout(function () {
                 document.querySelector('.card-' + firstCardIndex).style.backgroundColor = '#fbecc1';
                 document.querySelector('.card-' + secondCardIndex).style.backgroundColor = '#fbecc1';
+                //Enable all cards which are not matched
                 document.querySelectorAll('.game-pattern button').forEach((item) => {
-                    item.removeAttribute('disabled');
-                    item.style.cursor = 'pointer';
+                    if (item.getAttribute('matched') == 'false') {
+                        item.removeAttribute('disabled');
+                        item.style.cursor = 'pointer';
+                    }
                 });
             }, 800);
+            //Play the audio
+            let audio = new Audio('audio/wrong.mp3');
+            audio.volume = 0.5;
+            audio.play();
         }
         selectedFirstCard = false;
         selectedSecondCard = false;
@@ -93,12 +119,14 @@ function flipCard(cardIndex) {
 function resetGame() {
     document.querySelector('.game-pattern').innerHTML = '';
     document.querySelector('.start-btn').disabled = false;
+    document.getElementById('timer').innerHTML = '00:00';
+    document.querySelector('.win-annoucement').textContent = '';
     card = [];
     cardColor = [];
     score = 0;
-    document.getElementById('score').innerHTML = score;
+    flipTime = 0;
+    document.getElementById('flip-time').innerHTML = flipTime;
     completeMinute = 0;
     completeSecond = 0;
     clearInterval(timer);
-    document.getElementById('timer').innerHTML = '00:00';
 }

@@ -64,12 +64,12 @@ body {
 .control-pattern > * {
     margin: 20px auto;
 }
-.text-score {
+.big-text {
     font-size: 40px;
     font-weight: bold;
     color: #fff;
 }
-#score {
+#flip-time {
     color: #fff;
     font-size: 60px;
     font-weight: bold;
