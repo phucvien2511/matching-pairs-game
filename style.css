@@ -49,11 +49,16 @@ body {
     border: 3px solid #8d8741;
     border-radius: 10px;
     background-color: #fbeec1;
+    background-image: url('thonk.png');
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .game-pattern button:hover {
     cursor: pointer;
 }
+
 /* GAME PATTERN END */
 
 /* CONTROL PATTERN */

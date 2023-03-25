@@ -1,5 +1,5 @@
 const BOARD_SIZE = 16;
-const color = ['red', 'blue', 'purple', 'yellow', 'green', 'pink', 'white', 'black'];
+const color = ['red', 'blue', 'purple', 'yellow', 'green', '#ff69b4', 'white', 'black'];
 let card = [];
 let cardColor = [];
 let score = 0;
@@ -49,12 +49,12 @@ function initGame() {
 
 
 function flipCard(cardIndex) {
-
     //Disable the card after clicked
     let cardSelected = document.querySelector('.card-' + cardIndex);
     cardSelected.style.backgroundColor = cardSelected.getAttribute('data-color');
     cardSelected.style.cursor = 'not-allowed';
     cardSelected.setAttribute('disabled', true);
+    cardSelected.style.backgroundImage = 'none';
     let audio = new Audio('audio/click.mp3');
     audio.play();
     if (!selectedFirstCard) {
@@ -70,6 +70,28 @@ function flipCard(cardIndex) {
         flipTime++;
         document.getElementById('flip-time').innerHTML = flipTime;
         if (cardColor[firstCardIndex] == cardColor[secondCardIndex]) {
+            //Mark the cards as matched
+            document.getElementsByClassName('card-' + firstCardIndex)[0].setAttribute('matched', true);
+            document.getElementsByClassName('card-' + secondCardIndex)[0].setAttribute('matched', true);
+            document.querySelectorAll('.game-pattern button').forEach((item) => {
+                item.setAttribute('disabled', true);
+                item.style.cursor = 'not-allowed';
+            });
+            //Make the cards disappear
+            setTimeout(function () {
+                document.getElementsByClassName('card-' + firstCardIndex)[0].style.backgroundColor = 'transparent';
+                document.getElementsByClassName('card-' + secondCardIndex)[0].style.backgroundColor = 'transparent';
+                document.getElementsByClassName('card-' + firstCardIndex)[0].style.border = 'none';
+                document.getElementsByClassName('card-' + secondCardIndex)[0].style.border = 'none';
+                document.getElementsByClassName('card-' + firstCardIndex)[0].style.cursor = 'auto';
+                document.getElementsByClassName('card-' + secondCardIndex)[0].style.cursor = 'auto';
+                document.querySelectorAll('.game-pattern button').forEach((item) => {
+                    if (item.getAttribute('matched') == 'false') {
+                        item.removeAttribute('disabled');
+                        item.style.cursor = 'pointer';
+                    }
+                });
+            }, 800);
             score++;
             if (score == 8) {
                 document.querySelector('.win-annoucement').textContent = `You win! Your time: ${completeTime}. You flipped ${flipTime} pairs.`;
@@ -80,22 +102,20 @@ function flipCard(cardIndex) {
                 //End the game
                 return;
             }
-            //Mark the cards as matched
-            document.getElementsByClassName('card-' + firstCardIndex)[0].setAttribute('matched', true);
-            document.getElementsByClassName('card-' + secondCardIndex)[0].setAttribute('matched', true);
             //Play the audio
             let audio = new Audio('audio/correct.mp3');
             audio.volume = 0.5;
             audio.play();
         } 
         else {
-            //Disable all cards in 1 second
+            //Disable all cards
             document.querySelectorAll('.game-pattern button').forEach((item) => {
                 item.setAttribute('disabled', true);
                 item.style.cursor = 'not-allowed';
             });
-            //Change the color of the cards back to default
+            
             setTimeout(function () {
+                //Change the color of the cards back to default
                 document.querySelector('.card-' + firstCardIndex).style.backgroundColor = '#fbecc1';
                 document.querySelector('.card-' + secondCardIndex).style.backgroundColor = '#fbecc1';
                 //Enable all cards which are not matched
@@ -105,7 +125,12 @@ function flipCard(cardIndex) {
                         item.style.cursor = 'pointer';
                     }
                 });
+                //Change the background image of the cards back to default
+                document.querySelector('.card-' + firstCardIndex).style.backgroundImage = 'url("thonk.png")';
+                document.querySelector('.card-' + secondCardIndex).style.backgroundImage = 'url("thonk.png")';
             }, 800);
+            
+
             //Play the audio
             let audio = new Audio('audio/wrong.mp3');
             audio.volume = 0.5;
@@ -125,8 +150,19 @@ function resetGame() {
     cardColor = [];
     score = 0;
     flipTime = 0;
+    selectedFirstCard = false;
+    selectedSecondCard = false;
+    firstCardIndex = -1;
+    secondCardIndex = -1;
     document.getElementById('flip-time').innerHTML = flipTime;
     completeMinute = 0;
     completeSecond = 0;
     clearInterval(timer);
+    document.querySelectorAll('.game-pattern button').forEach((item) => {
+        //Set all cards to default attributes value
+        item.setAttribute('matched', false);
+        item.setAttribute('disabled', false);
+        item.style.backgroundColor = '#fbecc1';
+        item.style.backgroundImage = 'url("thonk.png")';
+    });
 }
